@@ -11,8 +11,18 @@ config_version=5
 [application]
 
 config/name="Global GameJam"
+run/main_scene="uid://1orotls588gu"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://game_core/game_manager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=480
 
 [rendering]
 
