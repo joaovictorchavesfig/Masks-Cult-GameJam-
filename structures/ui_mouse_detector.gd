@@ -5,7 +5,7 @@ extends Area2D
 # ============================================================================
 # REFERÊNCIAS DE NÓS
 # ============================================================================
-@onready var ui_container: Control = $"../../CanvasLayer/PanelContainer/IdleLabel"
+@onready var ui_container: Node2D = $"../Node2D"
 
 
 # ============================================================================

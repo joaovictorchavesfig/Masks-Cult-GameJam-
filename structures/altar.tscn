@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlj45b7xfhpsw"]
+[gd_scene format=3 uid="uid://dlj45b7xfhpsw"]
 
 [ext_resource type="Script" uid="uid://rb1toecsdbc7" path="res://structures/altar.gd" id="1_7lspr"]
 [ext_resource type="Script" uid="uid://cn5krpgbh1f36" path="res://structures/ui_mouse_detector.gd" id="1_ktwnd"]
@@ -13,49 +13,49 @@ size = Vector3(64, 100, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lspr"]
 size = Vector2(64, 100)
 
-[node name="Altar" type="Node2D"]
+[node name="Altar" type="Node2D" unique_id=1810707829]
 
-[node name="UIMouseDetector" type="Area2D" parent="."]
+[node name="UIMouseDetector" type="Area2D" parent="." unique_id=383372658]
 script = ExtResource("1_ktwnd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UIMouseDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIMouseDetector" unique_id=1188947606]
 position = Vector2(1, -100.5)
 shape = SubResource("RectangleShape2D_qymx5")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=700856897]
 script = ExtResource("1_7lspr")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Area2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Area2D" unique_id=616571431]
 mesh = SubResource("BoxMesh_uknca")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=401826804]
 shape = SubResource("RectangleShape2D_7lspr")
 
-[node name="Container" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=62146445]
 visible = false
 
-[node name="PlusButton" type="Button" parent="Container"]
+[node name="PlusButton" type="Button" parent="Node2D" unique_id=1365040670]
 offset_left = 29.0
 offset_top = -101.0
 offset_right = 47.0
 offset_bottom = -70.0
 text = "+"
 
-[node name="MinusButton" type="Button" parent="Container"]
+[node name="MinusButton" type="Button" parent="Node2D" unique_id=1244050980]
 offset_left = -47.0
 offset_top = -101.0
 offset_right = -29.0
 offset_bottom = -70.0
 text = "-"
 
-[node name="PeopleNumber" type="PanelContainer" parent="."]
+[node name="PeopleNumber" type="PanelContainer" parent="." unique_id=1496927510]
 offset_left = -4.0
 offset_top = -97.0
 offset_right = 6.0
 offset_bottom = -74.0
 theme_override_styles/panel = ExtResource("2_xrss7")
 
-[node name="Label" type="Label" parent="PeopleNumber"]
+[node name="Label" type="Label" parent="PeopleNumber" unique_id=129246887]
 layout_mode = 2
 text = "0"
 
@@ -63,5 +63,5 @@ text = "0"
 [connection signal="mouse_exited" from="UIMouseDetector" to="UIMouseDetector" method="_on_mouse_exited"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
-[connection signal="pressed" from="Container/PlusButton" to="Area2D" method="_on_plus_button_pressed"]
-[connection signal="pressed" from="Container/MinusButton" to="Area2D" method="_on_minus_button_pressed"]
+[connection signal="pressed" from="Node2D/PlusButton" to="Area2D" method="_on_plus_button_pressed"]
+[connection signal="pressed" from="Node2D/MinusButton" to="Area2D" method="_on_minus_button_pressed"]
