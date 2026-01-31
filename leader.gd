@@ -1,41 +1,65 @@
+## Personagem líder controlado pelo jogador via clique do mouse
 extends CharacterBody2D
 class_name Leader
 
-# Configurações
+
+# ============================================================================
+# CONFIGURAÇÕES EXPORTADAS
+# ============================================================================
+@export_group("Movimento")
 @export var speed: float = 200.0
 @export var stop_distance: float = 10.0
 
-# Variável para armazenar onde clicamos
-var target_position: Vector2
+# ============================================================================
+# REFERÊNCIAS DE NÓS
+# ============================================================================
+@onready var sprite: Sprite2D = $Sprite2D
 
-func _ready():
-	# Inicializa o alvo na posição atual para ele não sair correndo no começo
-	target_position = global_position
+# ============================================================================
+# VARIÁVEIS PRIVADAS
+# ============================================================================
+var _target_position: Vector2
 
-func _unhandled_input(event):
-	# Detecta o clique esquerdo do mouse
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			# Atualiza o alvo para a posição global do mouse
-			target_position = get_global_mouse_position()
 
-func _physics_process(_delta):
-	# Verifica a distância até o alvo
-	if global_position.distance_to(target_position) > stop_distance:
-		# Define a direção
-		var direction = global_position.direction_to(target_position)
-		
-		# Define a velocidade (Direção * Velocidade)
+# ============================================================================
+# FUNÇÕES BUILT-IN
+# ============================================================================
+func _ready() -> void:
+	_target_position = global_position
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if _is_click_event(event):
+		_target_position = get_global_mouse_position()
+
+
+func _physics_process(_delta: float) -> void:
+	_process_movement()
+
+
+# ============================================================================
+# FUNÇÕES PRIVADAS
+# ============================================================================
+func _is_click_event(event: InputEvent) -> bool:
+	return (
+		event is InputEventMouseButton 
+		and event.button_index == MOUSE_BUTTON_LEFT 
+		and event.pressed
+	)
+
+
+func _process_movement() -> void:
+	var distance := global_position.distance_to(_target_position)
+	
+	if distance > stop_distance:
+		var direction := global_position.direction_to(_target_position)
 		velocity = direction * speed
-		
-		# Aplica o movimento
 		move_and_slide()
-		
-		# Opcional: Virar o sprite para o lado que está andando
-		if direction.x < 0:
-			$Sprite2D.flip_h = true # Esquerda
-		elif direction.x > 0:
-			$Sprite2D.flip_h = false # Direita
+		_update_sprite_direction(direction)
 	else:
-		# Para o personagem se estiver muito perto
 		velocity = Vector2.ZERO
+
+
+func _update_sprite_direction(direction: Vector2) -> void:
+	if direction.x != 0:
+		sprite.flip_h = direction.x < 0

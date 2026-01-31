@@ -1,11 +1,27 @@
+## Detecta hover do mouse para mostrar/esconder UI de interação
 extends Area2D
 
-@onready var area_2d: Altar = $"../Area2D"
-@onready var container: Node = $"../Container"
-@onready var remove_leader_button: Button = $"../RemoveLeaderButton"
 
+# ============================================================================
+# REFERÊNCIAS DE NÓS
+# ============================================================================
+@onready var ui_container: Control = $"../../CanvasLayer/PanelContainer/IdleLabel"
+
+
+# ============================================================================
+# CALLBACKS DE SINAIS
+# ============================================================================
 func _on_mouse_entered() -> void:
-	container.show()
+	_set_ui_visible(true)
+
 
 func _on_mouse_exited() -> void:
-	container.hide()
+	_set_ui_visible(false)
+
+
+# ============================================================================
+# FUNÇÕES PRIVADAS
+# ============================================================================
+func _set_ui_visible(visible: bool) -> void:
+	if is_instance_valid(ui_container):
+		ui_container.visible = visible
